@@ -2,104 +2,106 @@
 
 int main()
 {
-    //valid range grade
-    try 
-    {
-        Bureaucrat BureaucratOne("one", 50);
-    }
-    catch (std:: exception & e)
-    {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-
-    //try with grade too low
-    std::cout << "Try grade too low: " << std::endl; 
-    try 
-    {
-        Bureaucrat BureaucratTwo("two", 151);
-    }
-    catch (std:: exception & e)
-    {
-        std::cout << "Error: " << e.what() << std::endl;;
-    }
-
-    std::cout << std::endl;
-
-    //try with grade too high
-    std::cout << "Try grade too high: " << std::endl;
-    try 
-    {
-        Bureaucrat BureaucratThree("three", 0);
-    }
-    catch (std:: exception & e)
-    {
-        std::cout << "Error: " << e.what() << std::endl;;
-    }
-    std::cout << std::endl;
+    std::cout << "=== Testing Bureaucrat Creation ===" << std::endl;
     
-    //try decrements and increments 
-    Bureaucrat BureaucratFour("four", 149);
-
-    std::cout << "Before decrement: " << std::endl; 
-    std::cout << BureaucratFour << std::endl;
-    std::cout << std::endl;
-
-    //decrement in range
+    // Test 1: Valid Bureaucrat creation
+    std::cout << "Creating valid Bureaucrat (grade 1):" << std::endl;
     try 
     {
-        BureaucratFour.decrementGrade();
+        Bureaucrat bureaucratOne("one", 1);
+        std::cout << bureaucratOne << std::endl;
     }
-    catch (std:: exception & e)
-    {
-        std::cout << "Error: " << e.what() << std::endl;
-    }
-
-    std::cout << "After decrement in range: " << std::endl; 
-    std::cout << BureaucratFour << std::endl;
-    std::cout << std::endl;
-    
-    
-    //try to decrement grade out of bound
-    std::cout << "Try decrement out of bounds: " << std::endl; 
-    try 
-    {
-        BureaucratFour.decrementGrade();
-    }
-    catch (std:: exception & e)
+    catch (std::exception & e)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
     std::cout << std::endl;
-    //try to increment grade out of bound
 
-    Bureaucrat BureaucratFive("five", 2);
-
-    std::cout << "Before increment: " << std::endl; 
-    std::cout << BureaucratFive << std::endl;
-    std::cout << std::endl;
-
-    //increment in range
+    // Test 2: Grade too low
+    std::cout << "Testing grade too low (151):" << std::endl;
     try 
     {
-        BureaucratFive.incrementGrade();
+        Bureaucrat bureaucratTwo("two", 151);
     }
-    catch (std:: exception & e)
+    catch (std::exception & e)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
-
-    std::cout << "After increment in range: " << std::endl; 
-    std::cout << BureaucratFive << std::endl;
     std::cout << std::endl;
-    
-    
-    //try to increment grade out of bound
-    std::cout << "Try increment out of bounds: " << std::endl; 
+
+    // Test 3: Grade too high
+    std::cout << "Testing grade too high (0):" << std::endl;
     try 
     {
-        BureaucratFive.incrementGrade();
+        Bureaucrat bureaucratThree("three", 0);
     }
-    catch (std:: exception & e)
+    catch (std::exception & e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+
+    std::cout << "=== Testing Grade Modifications ===" << std::endl;
+    
+    // Test 4: Decrement tests
+    std::cout << "--- Testing Decrement ---" << std::endl;
+    Bureaucrat bureaucratFour("four", 149);
+
+    std::cout << "Initial state:" << std::endl;
+    std::cout << bureaucratFour << std::endl << std::endl;
+
+    // Decrement in range
+    std::cout << "Decrementing grade (149 -> 150):" << std::endl;
+    try 
+    {
+        bureaucratFour.decrementGrade();
+        std::cout << bureaucratFour << std::endl;
+    }
+    catch (std::exception & e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+    
+    // Try to decrement out of bounds
+    std::cout << "Attempting to decrement beyond minimum (150 -> 151):" << std::endl;
+    try 
+    {
+        bureaucratFour.decrementGrade();
+    }
+    catch (std::exception & e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+
+    // Test 5: Increment tests
+    std::cout << "--- Testing Increment ---" << std::endl;
+    Bureaucrat bureaucratFive("five", 2);
+
+    std::cout << "Initial state:" << std::endl;
+    std::cout << bureaucratFive << std::endl << std::endl;
+
+    // Increment in range
+    std::cout << "Incrementing grade (2 -> 1):" << std::endl;
+    try 
+    {
+        bureaucratFive.incrementGrade();
+        std::cout << bureaucratFive << std::endl;
+    }
+    catch (std::exception & e)
+    {
+        std::cout << "Error: " << e.what() << std::endl;
+    }
+    std::cout << std::endl;
+    
+    // Try to increment out of bounds
+    std::cout << "Attempting to increment beyond maximum (1 -> 0):" << std::endl;
+    try 
+    {
+        bureaucratFive.incrementGrade();
+    }
+    catch (std::exception & e)
     {
         std::cout << "Error: " << e.what() << std::endl;
     }
