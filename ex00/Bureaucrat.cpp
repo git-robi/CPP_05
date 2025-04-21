@@ -23,9 +23,6 @@ std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat)
     return os;
 }
 
-Bureaucrat::Bureaucrat() : name("default"), grade(150)
-{
-}
 Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
 {
     if (grade < 1)
