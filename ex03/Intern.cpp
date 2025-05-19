@@ -3,6 +3,18 @@
 #include "ShrubberyCreationForm.hpp"
 #include "PresidentialPardonForm.hpp"
 
+const std::string Intern::formNames[3] = {
+    "shrubbery creation",
+    "robotomy request",
+    "presidential pardon"
+};
+
+const Intern::FormCreator Intern::formCreators[3] = {
+    &Intern::createShrubberyForm,
+    &Intern::createRobotomyForm,
+    &Intern::createPresidentialForm
+};
+
 Intern::Intern(){}
 
 Intern::Intern(Intern &other)
@@ -12,8 +24,7 @@ Intern::Intern(Intern &other)
 
 Intern& Intern::operator=(Intern &other)
 {
-    if (this != &other)
-        *this = other;
+    (void)other;
     return *this;
 }
 
@@ -21,41 +32,31 @@ Intern::~Intern()
 {
 }
 
-AForm* Intern::makeForm(std::string formName, std::string formTarget)
+AForm* Intern::createShrubberyForm(std::string target)
 {
-    std::string formNames[] = {"shrubbery creation", "robotomy request", "presidential pardon"};
-    
-    AForm *Form = NULL;
-    int i = 0;
-    while (i < 3 && formNames[i] != formName)
-        i++;
-    switch (i)
-    {
-        case 0:
-        {
-            Form = new ShrubberyCreationForm(formTarget);
-                break;
-        }
-        case 1:
-        {
-            Form = new RobotomyRequestForm(formTarget);
-                break;
-        }
-        case 2:
-        {
-            Form = new PresidentialPardonForm(formTarget);
-                break;
-        }
-        default:
-        {
-            std::cout << "Form " << formName << " does not exist." << std::endl;
-            break;
-        }
-    }
-    if (Form != NULL)
-        std::cout << "Intern creates " << formName << std::endl;
-    return Form;
-
+    return new ShrubberyCreationForm(target);
 }
 
+AForm* Intern::createRobotomyForm(std::string target)
+{
+    return new RobotomyRequestForm(target);
+}
 
+AForm* Intern::createPresidentialForm(std::string target)
+{
+    return new PresidentialPardonForm(target);
+}
+
+AForm* Intern::makeForm(std::string formName, std::string formTarget)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        if (formNames[i] == formName)
+        {
+            std::cout << "Intern creates " << formName << std::endl;
+            return (this->*formCreators[i])(formTarget);
+        }
+    }
+    std::cout << "Form " << formName << " does not exist." << std::endl;
+    return NULL;
+}
